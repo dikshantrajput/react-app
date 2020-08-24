@@ -1,0 +1,6 @@
+.cart-inner table{
+    text-align: left;
+}
+table td:last-child {
+    text-align: right;
+}
