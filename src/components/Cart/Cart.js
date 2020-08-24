@@ -17,7 +17,18 @@ const Cart = (props) => {
         shipping = 0;
     } else if(total > 15){
         shipping = 4.99;
+    } else if(total > 0){
+        shipping = 12.99;
     }
+
+    const formatNumber = value => {
+        const precision = value.toFixed(2);
+        return Number(precision);
+    }
+    
+
+    const tax = formatNumber(total * 0.05);
+
     
     return (
         <div className="cart-inner">
@@ -27,7 +38,7 @@ const Cart = (props) => {
                 <tbody>
                     <tr>
                         <td>Items:</td>
-                        <td>${total}</td>
+                        <td>${formatNumber(total)}</td>
                     </tr>
                     <tr>
                         <td>Shipping &amp; Handling:</td>
@@ -35,18 +46,19 @@ const Cart = (props) => {
                     </tr>
                     <tr>
                         <td>Total before tax:</td>
-                        <td></td>
+                        <td>${formatNumber(total + shipping)}</td>
                     </tr>
                     <tr>
                         <td>Estimated Tax:</td>
-                        <td></td>
+                        <td>${tax}</td>
                     </tr>
                     <tr class="total-row">
                         <td>Order Total:</td>
-                        <td></td>
+                        <td>${formatNumber(total + shipping + tax)}</td>
                     </tr>
                 </tbody>
-            </table>            
+            </table>     
+            <button className="btn-review">Review Order</button>       
         </div>
     );
 };
