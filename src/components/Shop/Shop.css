@@ -5,6 +5,9 @@
 .shop-container{
     width: 70%;
     margin-left: 20px;
-    margin-right: 5px;
     border-right: 1px solid lightgray;
+}
+.cart-container{
+    width: 30%;
+    text-align: center;
 }

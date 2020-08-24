@@ -1,0 +1,42 @@
+.cart-inner table{
+    text-align: left;
+    width: 100%;
+    padding: 0px 50px;
+}
+.cart-inner p{
+    font-size: 18px;
+    font-weight: 400;
+}
+.cart-inner h3{
+    background: #e4e4e4;
+    padding: 20px;
+    font-size: 24px;
+    margin: 0;
+    margin-bottom: 30px;
+    color: #06054c;
+}
+table td:last-child {
+    text-align: right;
+}
+
+.total-row {
+    color: #b12704;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 55px;
+    border-top: 1px solid gray;
+    margin-top: 5px;
+}
+
+.btn-review{
+    padding: 8px 20px;
+    font-size: 16px;
+    background: #f0c14b;
+    border-radius: 5px;
+    border: 2px solid #f0c14b;
+    cursor: pointer;
+    margin-bottom: 10px;
+    font-weight: bold;
+    width: 70%;
+    margin-top: 20px;
+}
