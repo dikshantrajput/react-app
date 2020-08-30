@@ -8,13 +8,10 @@ const ProductDetail = () => {
     const {productKey} = useParams();
     const product = fakeData.find(pd => pd.key === productKey);
 
-    console.log(product);
-    
-    
     return (
         <div>
             <h1>Product Detail coming Soon </h1>
-            <Product product={product}></Product>
+            <Product showAddToCart={false} product={product}></Product>
         </div>
     );
 };
