@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import Order from './components/Order/Order';
 import Inventory from './components/Inventory/Inventory';
+import NotFound from './components/NotFound/NotFound';
 
 function App() {
   return (
@@ -26,9 +27,12 @@ function App() {
           <Route path="/manage">
             <Inventory></Inventory>
           </Route>
-          <Route path="/">
+          <Route exact path="/">
             <Shop></Shop>
-          </Route>          
+          </Route> 
+          <Route path="*">
+            <NotFound></NotFound>
+          </Route>                   
         </Switch>
       </Router>
     </div>
