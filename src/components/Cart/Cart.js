@@ -52,7 +52,7 @@ const Cart = (props) => {
                         <td>Estimated Tax:</td>
                         <td>${tax}</td>
                     </tr>
-                    <tr class="total-row">
+                    <tr className="total-row">
                         <td>Order Total:</td>
                         <td>${formatNumber(total + shipping + tax)}</td>
                     </tr>
