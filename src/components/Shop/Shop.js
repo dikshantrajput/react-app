@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Shop.css'
 import fakeData from '../../fakeData';
 import Product from '../Product/Product';
 import Cart from '../Cart/Cart';
-import {addToDatabaseCart} from '../../utilities/databaseManager';
+import {addToDatabaseCart, getDatabaseCart} from '../../utilities/databaseManager';
+import { Link } from 'react-router-dom';
 
 const Shop = () => {
     const shop1 = fakeData.slice(0,10);
@@ -12,11 +13,32 @@ const Shop = () => {
 
     const [cart , setCart] = useState([])
 
+    useEffect(() => {
+        //carts
+        const saveCart =  getDatabaseCart();
+        const productKeys = Object.keys(saveCart);
+        const previousCart = productKeys.map(exitingKey => {
+            const product = fakeData.find(product => product.key === exitingKey);
+            product.quantity = saveCart[exitingKey];
+            return product;
+        });
+        setCart(previousCart);
+    }, []);
+
     const handleProduct = (product) => {
-        const newCart = [...cart, product]
+        const sameProduct = cart.find(pd => pd.key === product.key);
+        let count = 1;
+        let newCart;
+        if(sameProduct){
+            count = sameProduct.quantity + 1;
+            sameProduct.quantity = count;
+            const others = cart.filter(pd => pd.key !== product.key) 
+            newCart = [...others , sameProduct]
+        } else{
+            product.quantity = 1;
+            newCart = [...cart, product]
+        }
         setCart(newCart);
-        const sameProduct = newCart.filter(pd => pd.key === product.key)
-        const count = sameProduct.length;
         addToDatabaseCart(product.key, count)
     }
     
@@ -29,7 +51,11 @@ const Shop = () => {
                }
             </div>
             <div className="cart-container">
-                <Cart cart={cart}></Cart>
+                <Cart cart={cart}>
+                    <Link to="/order">
+                    <button className="btn-review">Review Order</button>   
+                    </Link>
+                </Cart>
             </div>
         </div>
     );

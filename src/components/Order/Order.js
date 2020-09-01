@@ -1,12 +1,22 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { getDatabaseCart, removeFromDatabaseCart } from '../../utilities/databaseManager';
+import { getDatabaseCart, removeFromDatabaseCart, processOrder } from '../../utilities/databaseManager';
 import fakeData from '../../fakeData';
 import ReviewItem from '../ReviewItem/ReviewItem';
+import Cart from '../Cart/Cart';
+import happyImage from '../../images/giphy.gif'
 
 const Order = () => {
 
     const [cart, setCart] = useState([]);
+
+    const [orderPlaced, setOrderPlaced] = useState(false);
+
+    const placeOrder = () => {
+        setCart([]);
+        setOrderPlaced(true);
+        processOrder();
+    }
 
     const removeProduct = (pdKey) => {
         const newCart = cart.filter(pd => pd.key !== pdKey);
@@ -27,16 +37,30 @@ const Order = () => {
         setCart(cartProduct);
         
     }, [])
+    let thanks;
+    if(orderPlaced){
+        thanks = <img src={happyImage} alt=""/>
+    }
     return (
-        <div>
-            <h1>order item: {cart.length}</h1>
-            {
-                cart.map( pd => <ReviewItem 
-                    key={pd.key}
-                    product={pd}
-                    removeProduct= {removeProduct}>
-                    </ReviewItem>)
-            }
+        <div className="product-container">
+            <div className="shop-container">
+                <div>
+                    {/* <h3>order item: {cart.length}</h3> */}
+                        {
+                            cart.map( pd => <ReviewItem 
+                                key={pd.key}
+                                product={pd}
+                                removeProduct= {removeProduct}>
+                                </ReviewItem>)
+                        }
+                    {thanks}
+                </div>
+            </div>
+            <div className="cart-container">
+                <Cart cart={cart}>
+                    <button onClick={placeOrder} className="btn">Place Order</button>
+                </Cart>
+            </div>
         </div>
     );
 };
