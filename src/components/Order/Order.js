@@ -11,7 +11,7 @@ const Order = () => {
     const removeProduct = (pdKey) => {
         const newCart = cart.filter(pd => pd.key !== pdKey);
         setCart(newCart);
-        
+        removeFromDatabaseCart(pdKey);
     }
 
     useEffect(() => {
