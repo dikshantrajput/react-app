@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import Header from './components/Header/Header';
-import Shop from './components/Shop/Shop';
 import {
   BrowserRouter as Router,
   Switch,
@@ -12,15 +11,15 @@ import Order from './components/Order/Order';
 import Inventory from './components/Inventory/Inventory';
 import NotFound from './components/NotFound/NotFound';
 import ProductDetail from './components/ProductDetail/ProductDetail';
+import Home from './components/Home/Home';
 
 function App() {
   return (
     <div>
-      <Header></Header>
       <Router>
         <Switch>
           <Route path="/shop">
-            <Shop></Shop>
+            <Home></Home>
           </Route>
           <Route path="/order">
             <Order></Order>
@@ -29,7 +28,7 @@ function App() {
             <Inventory></Inventory>
           </Route>
           <Route exact path="/">
-            <Shop></Shop>
+            <Home></Home>
           </Route> 
           <Route path="/product/:productKey">
             <ProductDetail></ProductDetail>

@@ -5,6 +5,7 @@ import fakeData from '../../fakeData';
 import ReviewItem from '../ReviewItem/ReviewItem';
 import Cart from '../Cart/Cart';
 import happyImage from '../../images/giphy.gif'
+import Header from '../Header/Header';
 
 const Order = () => {
 
@@ -42,24 +43,27 @@ const Order = () => {
         thanks = <img src={happyImage} alt=""/>
     }
     return (
-        <div className="product-container">
-            <div className="shop-container">
-                <div>
-                    {/* <h3>order item: {cart.length}</h3> */}
-                        {
-                            cart.map( pd => <ReviewItem 
-                                key={pd.key}
-                                product={pd}
-                                removeProduct= {removeProduct}>
-                                </ReviewItem>)
-                        }
-                    {thanks}
+        <div>
+            <Header></Header>
+            <div className="product-container">
+                <div className="shop-container">
+                    <div>
+                        {/* <h3>order item: {cart.length}</h3> */}
+                            {
+                                cart.map( pd => <ReviewItem 
+                                    key={pd.key}
+                                    product={pd}
+                                    removeProduct= {removeProduct}>
+                                    </ReviewItem>)
+                            }
+                        {thanks}
+                    </div>
                 </div>
-            </div>
-            <div className="cart-container">
-                <Cart cart={cart}>
-                    <button onClick={placeOrder} className="btn">Place Order</button>
-                </Cart>
+                <div className="cart-container">
+                    <Cart cart={cart}>
+                        <button onClick={placeOrder} className="btn">Place Order</button>
+                    </Cart>
+                </div>
             </div>
         </div>
     );

@@ -1,13 +1,14 @@
 import React from 'react';
 import Header from '../Header/Header';
+import Shop from '../Shop/Shop';
 
-const Inventory = () => {
+const Home = () => {
     return (
         <div>
             <Header></Header>
-            <h2>Developer Is Sleeping</h2>
+            <Shop></Shop>
         </div>
     );
 };
 
-export default Inventory;
+export default Home;
