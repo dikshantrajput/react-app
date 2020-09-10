@@ -5,7 +5,7 @@ const Inventory = () => {
     return (
         <div>
             <Header></Header>
-            <h2>Developer Is Sleeping</h2>
+            <h2>Developer Is Sleeping!!!!</h2>
         </div>
     );
 };
