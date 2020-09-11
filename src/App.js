@@ -11,6 +11,8 @@ import Inventory from './components/Inventory/Inventory';
 import NotFound from './components/NotFound/NotFound';
 import ProductDetail from './components/ProductDetail/ProductDetail';
 import Home from './components/Home/Home';
+import Shipment from './components/Shipment/Shipment';
+import LogIn from './components/LogIn/LogIn';
 
 function App() {
   return (
@@ -25,6 +27,12 @@ function App() {
           </Route>
           <Route path="/manage">
             <Inventory></Inventory>
+          </Route>
+          <Route path="/shipment">
+            <Shipment />
+          </Route>
+          <Route path="/Login">
+            <LogIn />
           </Route>
           <Route exact path="/">
             <Home></Home>
