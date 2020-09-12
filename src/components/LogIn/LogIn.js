@@ -1,8 +1,9 @@
-import React, {useState } from 'react';
+import React, {useState, useContext } from 'react';
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import firebaseConfig from './firebase.config'
 import Header from '../Header/Header';
+import { userContext } from '../../App';
 
 
 firebase.initializeApp(firebaseConfig);
@@ -19,7 +20,9 @@ function LogIn() {
     photo: '',
     isSuccess: false,
     error: ''
-  })
+  });
+
+  const [loggedInUser, setLoggedInUser] = useContext(userContext)
 
   const provider = new firebase.auth.GoogleAuthProvider();
   const fbProvider = new firebase.auth.FacebookAuthProvider();
@@ -103,7 +106,7 @@ function LogIn() {
         newUserInfo.error = '';
         newUserInfo.isSuccess = true;
         setUser(newUserInfo);
-        updateUserName(user.name)
+        updateUserName(user.name);
       })
       .catch(error => {
         // Handle Errors here.
@@ -120,6 +123,7 @@ function LogIn() {
         newUserInfo.error = '';
         newUserInfo.isSuccess = true;
         setUser(newUserInfo);
+        setLoggedInUser(newUserInfo);
 
       })
       .catch(error => {
