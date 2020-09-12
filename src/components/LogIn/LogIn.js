@@ -7,7 +7,6 @@ import { initializeLoginFramework, handleGoogleSignIn, handleSignOut, handleFBLo
 function LogIn() {
 
   const [newUser, setNewUser] = useState(false)
-
   const [user, setUser] = useState({
     isSignIn: false,
     name: '',
@@ -53,24 +52,24 @@ function LogIn() {
     }
   }
 
-    //get input from
-    const handleChange = (event) => {
-      let isFieldValid = true;
-      if(event.target.name === 'email'){
-        isFieldValid = /\S+@\S+\.\S+/.test(event.target.value); 
-      }
-      if(event.target.name === 'password'){
-        const isValidPassword = event.target.value.length > 6;
-        const isNumber = /\d{1}/.test(event.target.value);
-        isFieldValid = isValidPassword && isNumber;  
-      }
-      if(isFieldValid){
-        const newUserInfo = {...user};
-        newUserInfo[event.target.name] = event.target.value;
-        setUser(newUserInfo);
-      }
-      
+  //get input from
+  const handleChange = (event) => {
+    let isFieldValid = true;
+    if(event.target.name === 'email'){
+      isFieldValid = /\S+@\S+\.\S+/.test(event.target.value); 
     }
+    if(event.target.name === 'password'){
+      const isValidPassword = event.target.value.length > 6;
+      const isNumber = /\d{1}/.test(event.target.value);
+      isFieldValid = isValidPassword && isNumber;  
+    }
+    if(isFieldValid){
+      const newUserInfo = {...user};
+      newUserInfo[event.target.name] = event.target.value;
+      setUser(newUserInfo);
+    }
+    
+  }
   //onSubmit
   const handleSubmit = (e) => {
     if(newUser && user.email && user.password){
