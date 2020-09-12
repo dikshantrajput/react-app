@@ -17,7 +17,8 @@ export const handleGoogleSignIn = () => {
         isSignIn: true,
         name: displayName,
         email: email,
-        photo: photoURL
+        photo: photoURL,
+        isSuccess: true,
       }
       return signInUser;
     })
@@ -31,6 +32,7 @@ export const handleFBLogIn = () => {
     return firebase.auth().signInWithPopup(fbProvider).then(function(result) {
         var token = result.credential.accessToken;
         var user = result.user;
+        user.isSuccess =  true;
         return user;
 
     }).catch(function(error) {
@@ -55,42 +57,39 @@ export const handleSignOut = () => {
     .catch(err => console.log(err))
   }
 
-export const createUserWithEmailPassword = () => {
+export const createUserWithEmailPassword = (name, email, password) => {
     
-    firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
+    return firebase.auth().createUserWithEmailAndPassword(name, email, password)
     .then(res => {
-      const newUserInfo = {...user};
+      const newUserInfo = res.user;
       newUserInfo.error = '';
       newUserInfo.isSuccess = true;
-      setUser(newUserInfo);
-      updateUserName(user.name);
+      updateUserName(name);
+      return newUserInfo;
     })
     .catch(error => {
       // Handle Errors here.
-      const newUserInfo = {...user}
+      const newUserInfo = {}
       newUserInfo.error = error.message;
       newUserInfo.isSuccess = false;
-      setUser(newUserInfo);
+      return newUserInfo;
     });
 }
 
-export const logInUserWithEmailPassword = () => {
-    firebase.auth().signInWithEmailAndPassword(user.email, user.password)
+export const logInUserWithEmailPassword = (email, password) => {
+    return firebase.auth().signInWithEmailAndPassword(email, password)
     .then(res => {
-      const newUserInfo = {...user};
+      const newUserInfo = res.user;
       newUserInfo.error = '';
       newUserInfo.isSuccess = true;
-      setUser(newUserInfo);
-      setLoggedInUser(newUserInfo);
-      history.replace(from);
+      return newUserInfo;
 
     })
     .catch(error => {
-      const newUserInfo = {...user}
+      const newUserInfo = {}
       newUserInfo.error = error.message;
       newUserInfo.isSuccess = false;
-      setUser(newUserInfo);
-      
+      return newUserInfo;    
     })
 }
 
