@@ -45,7 +45,6 @@ const Order = () => {
     }
     return (
         <div>
-            <Header></Header>
             <div className="product-container">
                 <div className="shop-container">
                     <div>
