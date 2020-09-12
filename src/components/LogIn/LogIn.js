@@ -1,5 +1,4 @@
 import React, {useState, useContext } from 'react';
-import Header from '../Header/Header';
 import { userContext } from '../../App';
 import { useHistory, useLocation } from 'react-router-dom';
 import { initializeLoginFramework, handleGoogleSignIn, handleSignOut, handleFBLogIn } from './LoginManager';
@@ -30,19 +29,21 @@ function LogIn() {
     .then(res => {
       setUser(res);
       setLoggedInUser(res);
+      history.replace(from);
     });
-  }
-
-  const signOut = () => {
-    handleSignOut()
-    .then(res => {
-      setUser(res);
-      setLoggedInUser(res);
-    })
   }
 
   const fBLogIn = () => {
     handleFBLogIn()
+    .then(res => {
+      setUser(res);
+      setLoggedInUser(res);
+      history.replace(from);
+    })
+  }
+
+  const signOut = () => {
+    handleSignOut()
     .then(res => {
       setUser(res);
       setLoggedInUser(res);
