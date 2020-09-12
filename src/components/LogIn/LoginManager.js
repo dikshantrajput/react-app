@@ -8,7 +8,7 @@ export const initializeLoginFramework = () => {
 
 export const handleGoogleSignIn = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider)
+    return firebase.auth().signInWithPopup(provider)
     .then(res => {
       const {displayName, email , photoURL} = res.user;
       const signInUser = {
@@ -17,7 +17,7 @@ export const handleGoogleSignIn = () => {
         email: email,
         photo: photoURL
       }
-      setUser(signInUser)
+      return signInUser;
     })
     .catch(err => console.log(err))
     
@@ -26,26 +26,21 @@ export const handleGoogleSignIn = () => {
     //FB logging
 export const handleFBLogIn = () => {
     const fbProvider = new firebase.auth.FacebookAuthProvider();
-    firebase.auth().signInWithPopup(fbProvider).then(function(result) {
-        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+    return firebase.auth().signInWithPopup(fbProvider).then(function(result) {
         var token = result.credential.accessToken;
-        // The signed-in user info.
         var user = result.user;
-        // ...
+        return user;
+        
     }).catch(function(error) {
-        // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-        // ...
+        console.log(errorCode, errorMessage);
+        
     });
 }
 
 export const handleSignOut = () => {
-    firebase.auth().signOut()
+    return firebase.auth().signOut()
     .then(res => {
       const signOutUser = {
         isSignIn: false,
@@ -53,7 +48,61 @@ export const handleSignOut = () => {
         email: '',
         photo: ''
       }
-      setUser(signOutUser)
+      return signOutUser;
     })
     .catch(err => console.log(err))
+  }
+
+export const createUserWithEmailPassword = () => {
+    
+    firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
+    .then(res => {
+      const newUserInfo = {...user};
+      newUserInfo.error = '';
+      newUserInfo.isSuccess = true;
+      setUser(newUserInfo);
+      updateUserName(user.name);
+    })
+    .catch(error => {
+      // Handle Errors here.
+      const newUserInfo = {...user}
+      newUserInfo.error = error.message;
+      newUserInfo.isSuccess = false;
+      setUser(newUserInfo);
+    });
+}
+
+export const logInUserWithEmailPassword = () => {
+    firebase.auth().signInWithEmailAndPassword(user.email, user.password)
+    .then(res => {
+      const newUserInfo = {...user};
+      newUserInfo.error = '';
+      newUserInfo.isSuccess = true;
+      setUser(newUserInfo);
+      setLoggedInUser(newUserInfo);
+      history.replace(from);
+
+    })
+    .catch(error => {
+      const newUserInfo = {...user}
+      newUserInfo.error = error.message;
+      newUserInfo.isSuccess = false;
+      setUser(newUserInfo);
+      
+    })
+}
+
+
+const updateUserName = name => {
+
+    const user = firebase.auth().currentUser;
+
+    user.updateProfile({
+      displayName: name,
+    }).then(function() {
+      // Update successful.
+    }).catch(function(error) {
+      // An error happened.
+    });
+
   }
