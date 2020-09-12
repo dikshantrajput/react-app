@@ -1,13 +1,9 @@
 import React, {useState, useContext } from 'react';
-import * as firebase from "firebase/app";
-import "firebase/auth";
-import firebaseConfig from './firebase.config'
 import Header from '../Header/Header';
 import { userContext } from '../../App';
 import { useHistory, useLocation } from 'react-router-dom';
+import { initializeLoginFramework } from './LoginManager';
 
-
-firebase.initializeApp(firebaseConfig);
 
 function LogIn() {
 
@@ -23,65 +19,12 @@ function LogIn() {
     error: ''
   });
 
+  initializeLoginFramework();
   const [loggedInUser, setLoggedInUser] = useContext(userContext);
   const history = useHistory();
   const location = useLocation();
   let { from } = location.state || { from: { pathname: "/" } };
 
-  
-  const provider = new firebase.auth.GoogleAuthProvider();
-  const fbProvider = new firebase.auth.FacebookAuthProvider();
-
-  const handleSignIn = () => {
-    firebase.auth().signInWithPopup(provider)
-    .then(res => {
-      const {displayName, email , photoURL} = res.user;
-      const signInUser = {
-        isSignIn: true,
-        name: displayName,
-        email: email,
-        photo: photoURL
-      }
-      setUser(signInUser)
-    })
-    .catch(err => console.log(err))
-    
-  }
-
-
-  const handleSignOut = () => {
-    firebase.auth().signOut()
-    .then(res => {
-      const signOutUser = {
-        isSignIn: false,
-        name: '',
-        email: '',
-        photo: ''
-      }
-      setUser(signOutUser)
-    })
-    .catch(err => console.log(err))
-  }
-
-  //FB logging
-  const handleFBLogIn = () => {
-    firebase.auth().signInWithPopup(fbProvider).then(function(result) {
-      // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-      var token = result.credential.accessToken;
-      // The signed-in user info.
-      var user = result.user;
-      // ...
-    }).catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // The email of the user's account used.
-      var email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      var credential = error.credential;
-      // ...
-    });
-  }
 
     //get input from
     const handleChange = (event) => {
@@ -160,7 +103,7 @@ function LogIn() {
   return (
     <div style={{textAlign: 'center'}}>
       {
-        user.isSignIn ? <button onClick={handleSignOut}>Sign Out</button> : <button onClick={handleSignIn}>Sign In</button>
+        user.isSignIn ? <button onClick={handleSignOut}>Sign Out</button> : <button onClick={handleGoogleSignIn}>Sign In</button>
       }
       <br/>
       <button onClick={handleFBLogIn}>Sign In With Facebook</button>
