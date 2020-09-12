@@ -1,13 +1,13 @@
 import React from 'react';
 import Header from '../Header/Header';
 
-const Inventory = () => {
+const Shipment = () => {
     return (
         <div>
             <Header></Header>
-            <h2>Developer Is Sleeping!!!!!!</h2>
+            <h1>This is shipment</h1>
         </div>
     );
 };
 
-export default Inventory;
+export default Shipment;
