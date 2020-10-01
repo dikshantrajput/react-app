@@ -14,9 +14,9 @@ const Shipment = () => {
     return (
       <form className="ship-form" onSubmit={handleSubmit(onSubmit)}>
         <input name="Name" defaultValue={loggedInUser.name} ref={register({ required: true })} placeholder="Your Name" />
-        {errors.Name && <span className="error">Name is required</span>}
+        {errors.Name && <span className="error">Name is required!</span>}
         <input name="email" defaultValue={loggedInUser.email} ref={register({ required: true })} placeholder="Your Email" />
-        {errors.email && <span className="error">Email is required</span>}
+        {errors.email && <span className="error">Email is required@</span>}
         <input name="address" ref={register({ required: true })} placeholder="Address" />
         {errors.address && <span className="error">Address is required</span>}
         <input name="phone" ref={register({ required: true })} placeholder="Phone Number" />
