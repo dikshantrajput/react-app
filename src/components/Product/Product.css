@@ -30,3 +30,11 @@
     margin-bottom: 10px;
     font-weight: bold;
 }
+
+@media screen and (max-width:480px){
+    .product__image{
+        max-width:100px;
+        margin:0 !important;
+        padding:0;
+    }
+}

@@ -19,3 +19,10 @@ nav a{
 nav a:hover{
     background: grey;
 }
+
+@media screen and (max-width:480px){
+    nav a{
+        font-size: 12px;
+        padding:10px
+    }
+}

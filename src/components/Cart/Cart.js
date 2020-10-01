@@ -1,10 +1,12 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import './Cart.css'
 
 const Cart = (props) => {
     const cart = props.cart
     const total = cart.reduce((total , prd) => total + prd.price * prd.quantity , 0);
 
+    const location = useLocation()
     //Other Way
     // let total = 0;
     // for (let i = 0; i < cart.length; i++) {
@@ -29,9 +31,19 @@ const Cart = (props) => {
 
     const tax = formatNumber(total * 0.05);
 
-    
+    const div = document.querySelector('.cart-inner')
+
+    if(location.pathname=='/shop'){
+        if(div!==null){
+            div.parentElement.style.display="none"
+        }
+    }else{
+        div.parentElement.style.display="block"
+    }
+
     return (
-        <div className="cart-inner">
+        <div className="cart-inner" >
+            
             <h3>Order Summary</h3>
             <p>Items Ordered: {cart.length}</p>
             <table>
