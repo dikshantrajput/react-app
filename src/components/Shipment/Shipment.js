@@ -11,8 +11,6 @@ const Shipment = () => {
         console.log(data)
     };
   
-    console.log(watch("example")); // watch input value by passing the name of it
-  
     return (
       <form className="ship-form" onSubmit={handleSubmit(onSubmit)}>
         <input name="Name" defaultValue={loggedInUser.name} ref={register({ required: true })} placeholder="Your Name" />
